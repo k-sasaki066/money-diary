@@ -1,0 +1,79 @@
+/* 全体レイアウト */
+html,
+body,
+.layout {
+    height: 100%;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1;
+    padding: 0 16px;
+}
+
+/* ナビゲーションのレイアウト */
+.navi {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.navi button {
+    flex-grow: 1;
+}
+
+/* 入力欄のレイアウト */
+#inputSection {
+    display: flex;
+    justify-content: space-around;
+}
+
+#inputSection div {
+    flex-grow: 1;
+    margin: 0 10px 10px 0;
+}
+
+/* 登録ボタンのスタイル */
+.submit {
+    display: block;
+    text-align: center;
+}
+
+.submit button {
+    width: 120px;
+    height: 40px;
+}
+
+/* 見出しのスタイル */
+h2 {
+    padding-bottom: 5px;
+    border-bottom: #008b6a solid 2px;
+}
+
+/* 入出金一覧をスクロール */
+#list {
+    height: 400px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+/* フッターのレイアウト */
+footer {
+    margin: 50px auto 20px auto;
+    text-align: center;
+}
+
+.error-message {
+    color: rgb(243, 80, 80);
+    text-align: left;
+    font-size: 14px;
+}

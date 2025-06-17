@@ -1,0 +1,48 @@
+/* auth-header */
+.auth-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+}
+
+.main-title {
+    margin: 0;
+}
+
+.index-title {
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.auth-header-nav__link:last-of-type {
+    margin-left: 20px;
+}
+
+
+.form-container {
+    width: 500px;
+    margin: 200px auto;
+    text-align: center;
+}
+
+.form-group__item {
+    margin-bottom: 15px;
+}
+
+.form-group__item-input {
+    width: 100%;
+    margin: 0;
+}
+
+.form-btn {
+    border-radius: 5px;
+    margin-top: 32px;
+}
+
+.error-message {
+    color: rgb(243, 80, 80);
+    text-align: left;
+}
