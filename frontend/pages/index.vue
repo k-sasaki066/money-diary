@@ -16,11 +16,13 @@
                     <option>食費</option>
                     <option>趣味</option>
                     <option>交際費</option>
+                    <option>生活雑貨</option>
                     <option>交通費</option>
                     <option>ファッション</option>
-                    <option>クルマ</option>
                     <option>家賃</option>
                     <option>保険</option>
+                    <option>公共料金</option>
+                    <option>通信料</option>
                     <option>税金</option>
                     <option>その他</option>
                 </select>
