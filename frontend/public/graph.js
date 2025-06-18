@@ -27,7 +27,7 @@ function createPieChart(rows) {
     //Chart.jsの機能を使用して円グラフを表示
     let pieChart = document.getElementById("pieChart");
     new Chart(pieChart, {
-        type: "pie",
+        type: "doughnut",
         data: {
             labels: keyArray,
             datasets: [
