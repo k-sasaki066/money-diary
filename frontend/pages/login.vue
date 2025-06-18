@@ -1,7 +1,6 @@
 <template>
-    <Header></Header>
     <div class="form-container radius5 flex">
-        <h2 class="form-header">ログイン</h2>
+        <h2 class="form-header">Sign In</h2>
         <form class="form-group" @submit.prevent="handleLogin">
             <div class="form-group__item">
                 <input class="form-group__item-input" type="text" v-model="email" placeholder="メールアドレス">
@@ -32,11 +31,16 @@ import { useAuth } from '~/composables/useAuth';
 import { useSingleClick } from '~/composables/useSingleClick';
 
 const validationSchema = yup.object({
-    email: yup.string().required('メールアドレスは必須です'),
-    password: yup.string().required('パスワードは必須です')
+    email: yup
+    .string()
+    .required('メールアドレスは必須です'),
+
+    password: yup
+    .string()
+    .required('パスワードは必須です')
 });
 
-useForm({
+const { handleSubmit, validate, resetForm } = useForm({
     validationSchema,
     validateOnMount: false
 });
@@ -50,6 +54,10 @@ const { run, isRunning } = useSingleClick();
 const handleLogin = () => {
     run(async () => {
         try {
+            const result = await validate()
+            if (!result.valid) {
+                return; // バリデーションエラーがある場合は送信中止
+            };
             await login(email.value, password.value);
             alert('ログイン成功');
         } catch (e) {

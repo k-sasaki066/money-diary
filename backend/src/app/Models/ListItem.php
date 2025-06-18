@@ -10,7 +10,11 @@ class ListItem extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'balance', 'date', 'category_id', 'amount', 'memo'
+        'user_id',
+        'date',
+        'category_id',
+        'amount',
+        'memo',
     ];
 
     public function category()

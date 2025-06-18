@@ -14,12 +14,6 @@ export default defineNuxtConfig({
           content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'
         },
       ],
-      link: [
-        {
-          rel: 'stylesheet',
-          href: 'https://unpkg.com/sakura.css/css/sakura-earthly.css'
-        },
-      ],
       script: [
         {
           src: 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js', defer: true
