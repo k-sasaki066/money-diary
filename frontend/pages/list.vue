@@ -133,7 +133,7 @@ const submitData = () => {
                 return; // バリデーションエラーがある場合は送信中止
             };
 
-            const res = await $axios.post('/categories', {
+            const res = await $axios.post('/lists', {
             user_id: currentUserId.value,
             category_id: selectedCategory.value?.id,
             date: date.value,
