@@ -20,6 +20,7 @@ class CreateListItemsTable extends Migration
             $table->foreignId('category_id')->constrained()->onDelete('cascade');    // カテゴリ
             $table->integer('amount');     // 金額
             $table->string('memo')->nullable(); // メモ（任意）
+            $table->softDeletes();
             $table->timestamps();
         });
     }

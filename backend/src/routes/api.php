@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware(['firebase.auth'])->group(function () {
     Route::get('/v1/lists', [ListController::class, 'index']);
+    Route::post('/v1/lists', [ListController::class, 'store']);
+    Route::delete('/v1/lists/{id}', [ListController::class, 'destroy']);
     Route::get('/v1/categories', [CategoryController::class, 'index']);
-    Route::post('/v1/categories', [CategoryController::class, 'store']);
 });
