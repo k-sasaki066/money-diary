@@ -27,25 +27,25 @@
                     </div>
                     <h2>{{ selectedCategory.name }}</h2>
                 </div>
-                <form @submit.prevent="submitData">
-                <div class="list-input__group">
-                    <input class="list-input__item wide-click-area" type="date" v-model="date">
-                    <div class="error-message">
-                        <ErrorMessage name="date" />
-                    </div>
+                <form class="list-form" @submit.prevent="submitData">
+                    <div class="list-input__group">
+                        <input class="list-input__item wide-click-area" type="date" v-model="date">
+                        <div class="error-message">
+                            <ErrorMessage name="date" />
+                        </div>
 
-                    <input class="list-input__item" type="number" placeholder="金額を入力(例:1000円→1000)" v-model="amount">
-                    <div class="error-message">
-                        <ErrorMessage name="amount" />
-                    </div>
+                        <input class="list-input__item" type="number" placeholder="金額を入力(例:1000円→1000)" v-model="amount">
+                        <div class="error-message">
+                            <ErrorMessage name="amount" />
+                        </div>
 
-                    <input class="list-input__item" type="text" placeholder="メモ（任意）" v-model="memo"/>
-                    <button class="form-btn" type="submit" :disabled="isRunning">
-                    {{ isRunning ? '送信中...' : '保存する' }}
-                    </button>
-                </div>
-                <input type="hidden" :value="currentUserId" name="user_id" />
-                <input type="hidden" :value="selectedCategory.id" name="category_id" />
+                        <input class="list-input__item" type="text" placeholder="メモ（任意）" v-model="memo"/>
+                        <button class="form-btn" type="submit" :disabled="isRunning">
+                        {{ isRunning ? '送信中...' : '保存する' }}
+                        </button>
+                    </div>
+                    <input type="hidden" :value="currentUserId" name="user_id" />
+                    <input type="hidden" :value="selectedCategory.id" name="category_id" />
                 </form>
                 <button class="back-button" @click="step = 1">戻る</button>
             </div>

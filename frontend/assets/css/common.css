@@ -9,7 +9,7 @@ body,
 .layout {
     width: 100vw;
     min-height: 100vh;
-    background-color: #f3f4f4;
+    background: linear-gradient(to right, #f0f4f8, #d9e2ec);
     font-family: "Inter", "Helvetica Neue", Helvetica, Arial, Verdana, Roboto,
         "游ゴシック", "Yu Gothic", "游ゴシック体", "YuGothic",
         "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",
@@ -28,6 +28,7 @@ body,
     padding: 0 16px;
 }
 
+/* 共通ボタン */
 NuxtLink {
     text-decoration: none;
     cursor: pointer;
@@ -35,17 +36,18 @@ NuxtLink {
 
 .form-btn {
     width: 100%;
+    font-weight: bold;
     border: none;
     align-self: center;
-    background-color: #1ea827;
+    background-color: #4f5eb3;
+    border-radius: 3px;
     color: #fff;
     padding: 12px 0;
+    transition: background-color 0.3s;
 }
 
-/* フッターのレイアウト */
-footer {
-    margin: 50px auto 20px auto;
-    text-align: center;
+.form-btn:hover {
+    background-color: #7285ef;
 }
 
 /* エラーメッセージ */
@@ -61,9 +63,9 @@ footer {
     color: #fff;
 }
 
-.auth-header {
+.header {
     width: 100vw;
-    padding: 18px;
+    padding: 18px 24px;
     background-color: #494343;
     display: flex;
     justify-content: space-between;
@@ -78,14 +80,22 @@ footer {
     font-size: 14px;
 }
 
-.auth-header-nav__link {
+.header-nav__link {
     display: inline-block;
     align-self: center;
     color: #fff;
+    font-size: 1.1em;
 }
 
 .header-nav__logout-button {
     all: unset;
     color: #fff;
     background: #494343;
+    cursor: pointer;
+}
+
+/* フッターのレイアウト */
+.footer {
+    margin: 50px auto 20px auto;
+    text-align: center;
 }

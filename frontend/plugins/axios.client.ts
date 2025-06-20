@@ -9,7 +9,7 @@ import type { NuxtApp } from '#app';
 export default defineNuxtPlugin((nuxtApp) => {
     const router = useRouter();
     const instance = axios.create({
-        baseURL: 'http://localhost/api/v1', // Laravel API のベースURL
+        baseURL: 'http://127.0.0.1/api/v1', // Laravel API のベースURL
         headers: {
             'Content-Type': 'application/json',
         },

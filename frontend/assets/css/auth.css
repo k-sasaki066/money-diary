@@ -8,21 +8,31 @@
     text-align: center;
     padding: 40px 20px;
     background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.form-group {
+.auth-form {
     margin-top: 20px;
 }
 
-.form-group__item-input,
+.auth-form__item-input,
 .list-input__item {
     width: 100%;
     padding: 8px;
+    border-radius: 3px;
     border: 1px solid #e0dede;
     box-shadow: 2px 2px 2px #d0d0d0;
+    transition: border-color 0.3s;
 }
 
-.form-group__item {
+.auth-form__item-input:focus,
+.list-input__item:focus {
+    border-color: #344078;
+    outline: none;
+}
+
+.auth-form__item {
     margin-bottom: 15px;
 }
 
