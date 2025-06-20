@@ -1,5 +1,5 @@
 <template>
-    <canvas ref="pieChart" style="width: 100%"></canvas>
+    <canvas ref="pieChart" class="graph-canvas"></canvas>
 </template>
 
 <script setup lang="ts">
@@ -68,12 +68,14 @@ function createPieChart(rows: ListItems[]) {
         }],
         },
         options: {
-        plugins: {
-            title: {
-            display: true,
-            text: 'カテゴリ毎の支出割合',
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                title: {
+                display: true,
+                text: 'カテゴリ毎の支出割合',
+                },
             },
-        },
         },
     });
 }

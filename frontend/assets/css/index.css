@@ -85,7 +85,9 @@
 
 .graph-date {
     margin: 20px auto 0;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
     justify-content: space-between;
     gap: 1em;
 }
@@ -100,12 +102,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1;
     width: 100%;
 }
 
 .totalling-wrap {
     gap: 20px;
+    grid-column: 1/2;
+    grid-row: 1/2;
 }
 
 .totalling-amount__date {
@@ -136,5 +139,38 @@
 }
 
 .graph-wrap {
-    width: 50%;
+    grid-column: 2/3;
+    grid-row: 1/2;
+    text-align: center;
+}
+
+.graph-canvas {
+    width: 100%;
+    max-width: 100%;
+    min-width: 360px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    /* 正方形を維持（Chart.js対応なら便利） */
+    display: block;
+    margin: 0 auto;
+}
+
+.by-category-wrap {
+    grid-column: 1/3;
+    grid-row: 2/3;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: space-between;
+}
+
+.by-category__item {
+    flex: 0 0 calc(50% - 0.5em);
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 30px 2fr 1fr;
+    align-items: center;
+    gap: 1em;
+    background-color: #e6e2e2;
+    border-radius: 3px;
 }
