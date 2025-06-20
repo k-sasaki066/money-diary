@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\ListItem;
+use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Services\FirebaseService;
@@ -47,11 +48,14 @@ class ListController extends Controller
             $incomeTotal = $listItems->where('category.type', 'income')->sum('amount');
             $expenseTotal = $listItems->where('category.type', 'expense')->sum('amount');
 
+            $categories = Category::select('name', 'icon', 'type')->get();
+
             return response()->json([
                 'user' => $user,
                 'listItems' => $listItems,
                 'incomeTotal' => $incomeTotal,
                 'expenseTotal' => $expenseTotal,
+                'categories' => $categories,
             ], 200);
         } catch (Exception $e) {
             Log::error('Failed to fetch messages: ' . $e->getMessage());

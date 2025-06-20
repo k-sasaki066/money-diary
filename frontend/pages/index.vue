@@ -62,13 +62,6 @@
                 </div>
 
                 <div class="totalling-amount__date">
-                    <img class="icon-img" src="/icons/食費.png">
-                    <p class="totalling-expense__text">食費
-                        <span class="totalling-expense__span">¥{{ formatCurrency(foodExpenseTotal) }}</span>
-                    </p>
-                </div>
-
-                <div class="totalling-amount__date">
                     <img class="icon-img" src="/icons/外食.png">
                     <p class="totalling-expense__text">外食の回数
                         <span class="totalling-expense__span">{{ eatingOutCount }}回</span>
@@ -77,6 +70,14 @@
             </div>
             <div class="graph-wrap">
                 <GraphPie :data="listItems" />
+            </div>
+
+            <div class="by-category-wrap">
+                <div class="by-category__item" v-for="cat in expenseCategoryMaster" :key="cat.name">
+                    <img :src="cat.icon" alt="" class="icon-img" />
+                    {{ cat.name }}
+                    <span class="by-category__item-span">{{ formatYen(categoryTotals[cat.name] || 0) }}</span>
+                </div>
             </div>
         </section>
 
@@ -87,9 +88,10 @@
     import axios from 'axios';
     import type { NuxtApp } from '#app';
     import { format, addMonths } from 'date-fns';
-    import { ref, computed } from 'vue';
+    import { ref, toRef, computed } from 'vue';
     import { useSingleClick } from '~/composables/useSingleClick';
     import GraphPie from '~/components/GraphPie.vue';
+    import { useMonthlyTotals } from '~/composables/useMonthlyTotals';
 
     type ListItem = {
         id: number;
@@ -103,15 +105,27 @@
         };
     };
 
+    type Category = {
+        name: string;
+        icon: string;
+        type: 'income' | 'expense';
+    }
+
     const { $axios } = useNuxtApp();
     const currentMonth = ref(new Date());
     const listItems = ref<ListItem[]>([]);
     //listItems.value は ListItem の配列として認識されます
+    const categories = ref<Category[]>([]);
 
     const incomeTotal = ref([]);
     const expenseTotal = ref([]);
 
     const { run, isRunning } = useSingleClick();
+
+    const { categoryTotals, formatYen, expenseCategoryMaster } = useMonthlyTotals(
+        toRef(listItems),
+        categories
+    );
 
     onMounted(async () => {
         try {
@@ -137,6 +151,7 @@
             listItems.value = res.data.listItems;
             incomeTotal.value = res.data.incomeTotal;
             expenseTotal.value = res.data.expenseTotal;
+            categories.value = res.data.categories;
             console.log(res.data);
         } catch (err) {
             console.error('データ取得に失敗しました', err)
