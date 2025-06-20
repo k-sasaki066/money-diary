@@ -83,10 +83,6 @@
     max-width: 200px;
 }
 
-.list-table__delete-form {
-    text-align: center;
-}
-
 .graph-date {
     margin: 20px auto 0;
     display: flex;
