@@ -9,31 +9,38 @@
         </div>
         <section class="list-table__wrap">
             <table class="list-table">
-                <tr class="list-table__row">
+                <thead>
+                    <tr class="list-table__row">
                     <th class="list-table__header">日付</th>
                     <th class="list-table__header">収支</th>
                     <th class="list-table__header">カテゴリ</th>
                     <th class="list-table__header">金額</th>
                     <th class="list-table__header">メモ</th>
                     <th class="list-table__header">削除</th>
-                </tr>
-                <template v-if="listItems.length > 0">
-                    <tr class="list-table__row" v-for="item in listItems" :key="item.id">
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-if="listItems.length === 0" class="list-table__row">
+                        <td class="list-table__text" colspan="6">登録がありません</td>
+                    </tr>
+                    <tr
+                    v-for="item in listItems"
+                    :key="item.id"
+                    class="list-table__row"
+                    v-else
+                    >
                         <td class="list-table__text">{{ item.date }}</td>
                         <td class="list-table__text">{{ item.category.type === 'income' ? '収入' : '支出' }}</td>
                         <td class="list-table__text">{{ item.category.name }}</td>
                         <td class="list-table__text">{{ item.amount }}</td>
-                        <td class="list-table__text memo">{{ item.memo ? item.memo : '-' }}</td>
-                        <td>
+                        <td class="list-table__text memo">{{ item.memo || '-' }}</td>
+                        <td class="list-table__text">
                             <form class="list-table__delete-form" @submit.prevent="deleteData(item)">
-                                <button class="list-table__delete-btn" type="submit">×</button>
+                            <button class="list-table__delete-btn" type="submit">×</button>
                             </form>
                         </td>
                     </tr>
-                </template>
-                <tr class="list-table__row" v-else>
-                    <td colspan="6">登録がありません</td>
-                </tr>
+                </tbody>
             </table>
         </section>
 
@@ -41,21 +48,31 @@
         <section class="graph-date">
             <div class="totalling-wrap">
                 <div class="totalling-amount__date">
-                    <p class="totalling-income__text">収入 <span class="totalling-income__span">¥{{ formatCurrency(incomeTotal) }}</span></p>
+                    <p class="totalling-income__text">収入
+                        <span class="totalling-income__span">¥{{ formatCurrency(incomeTotal) }}</span>
+                    </p>
 
-                    <p class="totalling-expense__text">支出 <span class="totalling-expense__span">¥{{ formatCurrency(expenseTotal) }}</span></p>
+                    <p class="totalling-expense__text">支出
+                        <span class="totalling-expense__span">¥{{ formatCurrency(expenseTotal) }}</span>
+                    </p>
 
-                    <p class="totalling-balance__text">収支 <span class="totalling-balance__span">¥{{ formatCurrency(balance) }}</span></p>
+                    <p class="totalling-balance__text">収支
+                        <span class="totalling-balance__span">¥{{ formatCurrency(balance) }}</span>
+                    </p>
                 </div>
 
                 <div class="totalling-amount__date">
                     <img class="icon-img" src="/icons/食費.png">
-                    <p class="totalling-expense__text">食費<span class="totalling-expense__span">¥{{ formatCurrency(foodExpenseTotal) }}</span></p>
+                    <p class="totalling-expense__text">食費
+                        <span class="totalling-expense__span">¥{{ formatCurrency(foodExpenseTotal) }}</span>
+                    </p>
                 </div>
 
                 <div class="totalling-amount__date">
                     <img class="icon-img" src="/icons/外食.png">
-                    <p class="totalling-expense__text">外食の回数<span class="totalling-expense__span">{{ eatingOutCount }}回</span></p>
+                    <p class="totalling-expense__text">外食の回数
+                        <span class="totalling-expense__span">{{ eatingOutCount }}回</span>
+                    </p>
                 </div>
             </div>
             <div class="graph-wrap">
@@ -98,6 +115,7 @@
 
     onMounted(async () => {
         try {
+            await waitForAuthReady();
             fetchListItems();
         } catch (error) {
             console.error('初期化中にエラーが発生しました:', error);
@@ -134,12 +152,12 @@
             if (!ok) return;
 
             try {
-            await $axios.delete(`/lists/${item.id}`);
-            listItems.value = listItems.value.filter(i => i.id !== item.id);
-            await fetchListItems();
+                await $axios.delete(`/lists/${item.id}`);
+                listItems.value = listItems.value.filter(i => i.id !== item.id);
+                await fetchListItems();
             } catch (err) {
-            alert('削除に失敗しました');
-            console.error(err);
+                alert('削除に失敗しました');
+                console.error(err);
             }
         })
     }

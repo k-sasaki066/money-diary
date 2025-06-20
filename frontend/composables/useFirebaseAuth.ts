@@ -1,5 +1,5 @@
 import { ref, computed, watch } from 'vue';
-import { getAuth, onAuthStateChanged, type User } from 'firebase/auth';
+import { onAuthStateChanged, type User } from 'firebase/auth';
 import { useNuxtApp } from '#app';
 
 const firebaseUser = ref<User | null>(null);
@@ -7,7 +7,7 @@ const firebaseToken = ref<string | null>(null);
 const isInitialized = ref(false);
 
 export const initAuth = () => {
-  if (isInitialized.value) return; // avoid double‑binding
+  if (isInitialized.value) return;
 
   const { $auth } = useNuxtApp();
   onAuthStateChanged($auth, async (user) => {
@@ -40,19 +40,12 @@ export const refreshToken = async () => {
 };
 
 export const useFirebaseAuth = () => {
-  /* reactive shortcuts */
-  const user = firebaseUser; // already ref
-  const token = firebaseToken; // already ref
-  const currentUser = computed(() => firebaseUser.value);
-  const currentUid = computed(() => firebaseUser.value?.uid ?? null);
-
   return {
-    user,
-    token,
-    currentUser,
-    currentUid,
+    user: firebaseUser,
+    token: firebaseToken,
+    currentUser: computed(() => firebaseUser.value),
+    currentUid: computed(() => firebaseUser.value?.uid ?? null),
     isInitialized,
-    /** helpers */
     initAuth,
     waitForAuthReady,
     refreshToken,

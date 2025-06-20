@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
 
-  ssr: false,
+  ssr: true,
 
   app: {
     head: {
@@ -35,7 +35,7 @@ export default defineNuxtConfig({
       FIREBASE_APP_ID: process.env.NUXT_PUBLIC_FIREBASE_APP_ID,
       PUSHER_APP_KEY: process.env.NUXT_PUBLIC_PUSHER_APP_KEY,
       PUSHER_APP_CLUSTER: process.env.NUXT_PUBLIC_PUSHER_APP_CLUSTER,
-    }
+    },
   },
   modules: ['@pinia/nuxt'],
 });

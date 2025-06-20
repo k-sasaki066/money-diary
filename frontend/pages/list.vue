@@ -13,7 +13,7 @@
                 <div class="categories">
                     <button v-for="cat in filteredCategories" :key="cat.name" @click="selectCategory(cat)" class="category-button">
                         <div class="icon-circle">
-                        <img :src="cat.icon" alt="icon" class="icon-img" />
+                            <img :src="cat.icon" alt="icon" class="icon-img" />
                         </div>
                         <span class="category-name">{{ cat.name }}</span>
                     </button>
@@ -41,7 +41,7 @@
 
                         <input class="list-input__item" type="text" placeholder="メモ（任意）" v-model="memo"/>
                         <button class="form-btn" type="submit" :disabled="isRunning">
-                        {{ isRunning ? '送信中...' : '保存する' }}
+                            {{ isRunning ? '送信中...' : '保存する' }}
                         </button>
                     </div>
                     <input type="hidden" :value="currentUserId" name="user_id" />

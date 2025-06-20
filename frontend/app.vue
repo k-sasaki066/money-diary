@@ -6,22 +6,28 @@
     import '~/assets/css/list_form.css';
     import { useFirebaseAuth } from '~/composables/useFirebaseAuth';
     import { useSingleClick } from '~/composables/useSingleClick';
+    import { onMounted } from 'vue';
+    import { useRouter } from 'vue-router';
 
+    const router = useRouter();
     const { run, isRunning } = useSingleClick();
     const { logout } = useAuth();
     const { initAuth, waitForAuthReady, currentUser, token } = useFirebaseAuth();
 
-    initAuth(); //Firebase のログイン状態を監視開始
-    await waitForAuthReady();
+    onMounted(async () => {
+        if (process.client) {
+            initAuth();
+            await waitForAuthReady();
 
-    if (!currentUser.value) {
-      // 未ログインならログインページにリダイレクト
-      console.log('未ログイン');
-      useRouter().push('/login');
-    } else {
-      console.log('ログイン済み:', currentUser.value.uid);
-      console.log('トークン:', token.value);
-    }
+            if (!currentUser.value) {
+                console.log('未ログイン');
+                router.push('/login');
+            } else {
+                console.log('ログイン済み:', currentUser.value.uid);
+                console.log('トークン:', token.value);
+            }
+        }
+    });
 
     const handleLogout = async () => {
         if (!confirm('ログアウトしますか？')) return
@@ -38,9 +44,9 @@
     <header class="header">
         <h1 class="main-title" v-if="!currentUser">MyMoney</h1>
         <h1 class="main-title">
-          <NuxtLink to="/" v-if="currentUser">
-              MyMoney
-          </NuxtLink>
+            <NuxtLink to="/" v-if="currentUser">
+                MyMoney
+            </NuxtLink>
         </h1>
         <div class="navi">
             <NuxtLink class="header-nav__link" to ="/register" v-if="!currentUser">
@@ -66,7 +72,7 @@
         <NuxtRouteAnnouncer />
 
         <main class="content">
-          <NuxtPage />
+            <NuxtPage />
         </main>
 
         <footer class="footer">
