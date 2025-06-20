@@ -6,26 +6,26 @@
 
 .income-expense-toggle {
     display: inline-flex;
-    border: 2px solid #4CAF50;
+    border: 2px solid #3882aa;
     border-radius: 999px;
     overflow: hidden;
-    font-size: 16px;
+    font-size: 1.1em;
     width: 200px;
 }
 
 .income-expense-toggle button {
     flex: 1;
     padding: 0.5rem 1rem;
-    background-color: white;
+    background-color: #fff;
     border: none;
     cursor: pointer;
-    color: #4CAF50;
+    color: #3882aa;
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .income-expense-toggle button.active {
-    background-color: #4CAF50;
+    background-color: #3882aa;
     color: white;
 }
 
@@ -38,24 +38,32 @@
     margin: 0 auto;
 }
 
+/* .step にも transition を指定してアニメーション補助 */
 .step {
     transition: transform 0.3s ease;
 }
 
+/* step の値（1 or 2）で表示されるコンテンツが切り替わる */
+/* name="slide" により、CSS クラス .slide-enter-*,
+.slide-leave-* が適用される。 */
 .slide-enter-active,
 .slide-leave-active {
+    /* 両者に共通の transition で滑らかに遷移 */
     transition: all 0.3s ease;
 }
 
+/* 新しく表示される要素は右（100%）からスライドイン */
 .slide-enter-from {
     transform: translateX(100%);
 }
 
+/* 今の要素は左（-100%）にスライドアウト */
 .slide-leave-to {
     transform: translateX(-100%);
 }
 
-.slide-title {
+.slide-title,
+.step2 {
     text-align: center;
 }
 
@@ -76,11 +84,14 @@
     align-items: center;
     width: 80px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-.category-button:hover {
-    background-color: #e5e5e5;
+.icon-circle {
+    transition: 0.3s;
+}
+
+.icon-circle:hover {
+    background-color: #f4f27c;
 }
 
 .icon-circle,
@@ -110,10 +121,6 @@
 
 .category-name {
     font-size: 14px;
-    text-align: center;
-}
-
-.step2 {
     text-align: center;
 }
 

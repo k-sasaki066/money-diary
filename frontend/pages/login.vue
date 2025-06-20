@@ -1,16 +1,16 @@
 <template>
     <div class="form-container radius5 flex">
         <h2 class="form-header">Sign In</h2>
-        <form class="form-group" @submit.prevent="handleLogin">
-            <div class="form-group__item">
-                <input class="form-group__item-input" type="text" v-model="email" placeholder="メールアドレス">
+        <form class="auth-form" @submit.prevent="handleLogin">
+            <div class="auth-form__item">
+                <input class="auth-form__item-input" type="text" v-model="email" placeholder="メールアドレス">
                 <div class="error-message">
                     <ErrorMessage name="email" />
                 </div>
             </div>
 
-            <div class="form-group__item">
-                <input class="form-group__item-input" type="password" v-model="password" placeholder="パスワード">
+            <div class="auth-form__item">
+                <input class="auth-form__item-input" type="password" v-model="password" placeholder="パスワード">
                 <div class="error-message">
                     <ErrorMessage name="password" />
                 </div>

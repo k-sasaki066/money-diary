@@ -7,55 +7,55 @@
             </h2>
             <button class="month-navigation__button" @click="changeMonth(1)">→</button>
         </div>
-        <section id="list">
-            <table>
-                <tr>
-                    <th>日付</th>
-                    <th>収支</th>
-                    <th>カテゴリ</th>
-                    <th>金額</th>
-                    <th>メモ</th>
-                    <th>削除</th>
+        <section class="list-table__wrap">
+            <table class="list-table">
+                <tr class="list-table__row">
+                    <th class="list-table__header">日付</th>
+                    <th class="list-table__header">収支</th>
+                    <th class="list-table__header">カテゴリ</th>
+                    <th class="list-table__header">金額</th>
+                    <th class="list-table__header">メモ</th>
+                    <th class="list-table__header">削除</th>
                 </tr>
                 <template v-if="listItems.length > 0">
-                    <tr v-for="item in listItems" :key="item.id">
-                        <td>{{ item.date }}</td>
-                        <td>{{ item.category.type === 'income' ? '収入' : '支出' }}</td>
-                        <td>{{ item.category.name }}</td>
-                        <td>{{ item.amount }}</td>
-                        <td class="memo">{{ item.memo ? item.memo : '-' }}</td>
+                    <tr class="list-table__row" v-for="item in listItems" :key="item.id">
+                        <td class="list-table__text">{{ item.date }}</td>
+                        <td class="list-table__text">{{ item.category.type === 'income' ? '収入' : '支出' }}</td>
+                        <td class="list-table__text">{{ item.category.name }}</td>
+                        <td class="list-table__text">{{ item.amount }}</td>
+                        <td class="list-table__text memo">{{ item.memo ? item.memo : '-' }}</td>
                         <td>
-                            <form @submit.prevent="deleteData(item)">
-                                <button type="submit">×</button>
+                            <form class="list-table__delete-form" @submit.prevent="deleteData(item)">
+                                <button class="list-table__delete-btn" type="submit">×</button>
                             </form>
                         </td>
                     </tr>
                 </template>
-                <tr v-else>
+                <tr class="list-table__row" v-else>
                     <td colspan="6">登録がありません</td>
                 </tr>
             </table>
         </section>
 
-        <h2 class="section-title" id="graph">今月のお金の動き</h2>
+        <h2 class="graph-date__title">今月のお金の動き</h2>
         <section class="graph-date">
             <div class="totalling-wrap">
-                <div class="amount-date">
-                    <p class="expense-text">収入 <span class="expense-text__span">¥{{ formatCurrency(incomeTotal) }}</span></p>
+                <div class="totalling-amount__date">
+                    <p class="totalling-income__text">収入 <span class="totalling-income__span">¥{{ formatCurrency(incomeTotal) }}</span></p>
 
-                    <p class="expense-text">支出 <span class="expense-text__span">¥{{ formatCurrency(expenseTotal) }}</span></p>
+                    <p class="totalling-expense__text">支出 <span class="totalling-expense__span">¥{{ formatCurrency(expenseTotal) }}</span></p>
 
-                    <p class="expense-text__balance">収支 <span class="expense-text__span">¥{{ formatCurrency(balance) }}</span></p>
+                    <p class="totalling-balance__text">収支 <span class="totalling-balance__span">¥{{ formatCurrency(balance) }}</span></p>
                 </div>
 
-                <div class="amount-date">
+                <div class="totalling-amount__date">
                     <img class="icon-img" src="/icons/食費.png">
-                    <p class="expense-text">食費<span class="expense-text__span">¥{{ formatCurrency(foodExpenseTotal) }}</span></p>
+                    <p class="totalling-expense__text">食費<span class="totalling-expense__span">¥{{ formatCurrency(foodExpenseTotal) }}</span></p>
                 </div>
 
-                <div class="amount-date">
+                <div class="totalling-amount__date">
                     <img class="icon-img" src="/icons/外食.png">
-                    <p class="expense-text">外食の回数<span class="expense-text__span">{{ eatingOutCount }}回</span></p>
+                    <p class="totalling-expense__text">外食の回数<span class="totalling-expense__span">{{ eatingOutCount }}回</span></p>
                 </div>
             </div>
             <div class="graph-wrap">

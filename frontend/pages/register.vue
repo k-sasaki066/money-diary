@@ -1,24 +1,24 @@
 <template>
     <div class="form-container">
         <h2 class="form-header">Sign Up</h2>
-        <form class="form-group" @submit.prevent="handleRegister">
-            <div class="form-group__item">
-                <input class="form-group__item-input" type="text" v-model="name" placeholder="ユーザーネーム">
+        <form class="auth-form" @submit.prevent="handleRegister">
+            <div class="auth-form__item">
+                <input class="auth-form__item-input" type="text" v-model="name" placeholder="ユーザーネーム">
                 <div class="error-message">
                     <ErrorMessage name="name" />
                 </div>
 
             </div>
 
-            <div class="form-group__item">
-                <input class="form-group__item-input" type="text" v-model="email" placeholder="メールアドレス">
+            <div class="auth-form__item">
+                <input class="auth-form__item-input" type="text" v-model="email" placeholder="メールアドレス">
                 <div class="error-message">
                     <ErrorMessage name="email" />
                 </div>
             </div>
 
-            <div class="form-group__item">
-                <input class="form-group__item-input" type="password" v-model="password" placeholder="パスワード">
+            <div class="auth-form__item">
+                <input class="auth-form__item-input" type="password" v-model="password" placeholder="パスワード">
                 <div class="error-message">
                     <ErrorMessage name="password" />
                 </div>

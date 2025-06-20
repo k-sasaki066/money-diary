@@ -35,24 +35,29 @@
 </script>
 
 <template>
-    <header class="auth-header">
-        <h1 class="main-title">MyMoney</h1>
+    <header class="header">
+        <h1 class="main-title" v-if="!currentUser">MyMoney</h1>
+        <h1 class="main-title">
+          <NuxtLink to="/" v-if="currentUser">
+              MyMoney
+          </NuxtLink>
+        </h1>
         <div class="navi">
-            <NuxtLink class="auth-header-nav__link" to ="/register" v-if="!currentUser">
-                Sign Up
+            <NuxtLink class="header-nav__link" to ="/register" v-if="!currentUser">
+                SignUp
             </NuxtLink>
-            <NuxtLink class="auth-header-nav__link" to="/login" v-if="!currentUser">
-                Sign In
+
+            <NuxtLink class="header-nav__link" to="/login" v-if="!currentUser">
+                SignIn
             </NuxtLink>
-            <NuxtLink class="auth-header-nav__link" to="/" v-if="currentUser">
-                Home
-            </NuxtLink>
-            <NuxtLink class="auth-header-nav__link" to="/list" v-if="currentUser">
+
+            <NuxtLink class="header-nav__link" to="/list" v-if="currentUser">
                 Edit
             </NuxtLink>
+            
             <form class="header-nav__logout-form" @submit.prevent="handleLogout" v-if="currentUser">
                 <button class="header-nav__logout-button" type="submit">
-                    ログアウト
+                    SignOut
                 </button>
             </form>
         </div>
@@ -64,7 +69,7 @@
           <NuxtPage />
         </main>
 
-        <footer>
+        <footer class="footer">
             &copy;MyMoney
         </footer>
     </div>
