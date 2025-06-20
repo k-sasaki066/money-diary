@@ -27,7 +27,7 @@ class ListController extends Controller
         try {
             $user = auth()->user();
             if (!$user) {
-                return response()->json(['error' => 'Unauthorized'], 401);
+                return response()->json(['error' => 'このページを表示するための権限がありません'], 401);
             }
 
             $month = $request->query('month', Carbon::now()->format('Y-m'));
@@ -36,7 +36,7 @@ class ListController extends Controller
                 $startOfMonth = Carbon::createFromFormat('Y-m', $month)->startOfMonth();
                 $endOfMonth = Carbon::createFromFormat('Y-m', $month)->endOfMonth();
             } catch (\Exception $e) {
-                return response()->json(['error' => 'Invalid month format'], 400);
+                return response()->json(['error' => '月の形式が正しくありません'], 400);
             }
 
             $listItems = ListItem::with('category')
@@ -77,7 +77,7 @@ class ListController extends Controller
         try {
             $user = auth()->user();
             if (!$user) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'このページを表示するための権限がありません'], 401);
             }
 
             $validated = $request->validate([
@@ -137,14 +137,14 @@ class ListController extends Controller
         try {
             $user = auth()->user();
             if (!$user) {
-                return response()->json(['error' => 'Unauthorized'], 401);
+                return response()->json(['error' => 'このページを表示するための権限がありません'], 401);
             }
 
             $item = ListItem::where('id', $id)
                 ->where('user_id', $user->id)
                 ->firstOrFail();
             if ($item->user_id !== $user->id) {
-                return response()->json(['error' => 'Forbidden'], 403); // 自分以外のメッセージは削除できない
+                return response()->json(['error' => 'アクセス権限がありません'], 403); // 自分以外のメッセージは削除できない
             }
 
             $item->delete();

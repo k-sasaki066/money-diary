@@ -99,3 +99,30 @@ NuxtLink {
     margin: 50px auto 20px auto;
     text-align: center;
 }
+
+/* エラーページ */
+.error-wrap {
+    width: 50%;
+    margin: 128px auto;
+    text-align: center;
+    padding: 20px;
+}
+
+.error-status {
+    font-size: 100px;
+}
+
+.error-title {
+    font-size: 30px;
+    line-height: 2em;
+}
+
+.error-text {
+    margin-top: 28px;
+    line-height: 1.4em;
+}
+
+.back-home__btn {
+    display: block;
+    margin-top: 64px;
+}

@@ -8,11 +8,15 @@
     import { useSingleClick } from '~/composables/useSingleClick';
     import { onMounted } from 'vue';
     import { useRouter } from 'vue-router';
+    import { useRoute } from 'vue-router';
 
     const router = useRouter();
     const { run, isRunning } = useSingleClick();
     const { logout } = useAuth();
     const { initAuth, waitForAuthReady, currentUser, token } = useFirebaseAuth();
+
+    const route = useRoute();
+    const isErrorPage = computed(() => route.path === '/error');
 
     onMounted(async () => {
         if (process.client) {
@@ -41,7 +45,7 @@
 </script>
 
 <template>
-    <header class="header">
+    <header class="header" v-if="!isErrorPage">
         <h1 class="main-title" v-if="!currentUser">MyMoney</h1>
         <h1 class="main-title">
             <NuxtLink to="/" v-if="currentUser">

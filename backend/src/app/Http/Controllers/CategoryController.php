@@ -18,7 +18,7 @@ class CategoryController extends Controller
         try {
             $user = auth()->user();
             if (!$user) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'このページを表示するための権限がありません'], 401);
             }
 
             $categories = Category::all();

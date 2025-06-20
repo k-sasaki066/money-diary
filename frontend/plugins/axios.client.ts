@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getAuth } from 'firebase/auth';
 // getAuth() は クライアントで Firebase が初期化済みでなければ例外を投げる
 // プラグインそのものを .client.ts にするか、process.client でガードする必要があります
-// import { useErrorStore } from '~/stores/error'
+import { useErrorStore } from '~/stores/error';
 import type { NuxtApp } from '#app';
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -29,7 +29,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     instance.interceptors.response.use(
         response => response,
         async (error) => {
-            // const errorStore = useErrorStore();
+            const errorStore = useErrorStore();
             const status = error.response?.status || 500;
 
             // Firebaseトークンが無効だった場合に再ログイン試行
@@ -47,15 +47,15 @@ export default defineNuxtPlugin((nuxtApp) => {
                 } catch (e) {
                     alert('認証が切れました。ログインし直してください。');
                     await router.push('/login');
-                    return Promise.reject(error)
+                    return Promise.reject(error);
                 }
             };
 
             // その他のエラー処理
-            // const message = error.response?.data?.error || error.message || '不明なエラーが発生しました';
-            // errorStore.setError(message, status)
-            // await router.push('/error');
-            // return Promise.reject(error)
+            const message = error.response?.data?.error || error.message || '不明なエラーが発生しました';
+            errorStore.setError(message, status);
+            await router.push('/error');
+            return Promise.reject(error);
         }
     );
 

@@ -153,7 +153,7 @@
             expenseTotal.value = res.data.expenseTotal;
             categories.value = res.data.categories;
             console.log(res.data);
-        } catch (err) {
+        } catch (error) {
             console.error('データ取得に失敗しました', err)
         }
     }
