@@ -6,7 +6,7 @@ const firebaseUser = ref<User | null>(null);
 const firebaseToken = ref<string | null>(null);
 const isInitialized = ref(false);
 
-export const initAuth = () => {
+export const initAuth: () => void = () => {
   if (isInitialized.value) return;
 
   const { $auth } = useNuxtApp();
@@ -33,7 +33,7 @@ export const waitForAuthReady = () =>
     );
   });
 
-export const refreshToken = async () => {
+export const refreshToken: () => Promise<void> = async () => {
   if (firebaseUser.value) {
     firebaseToken.value = await firebaseUser.value.getIdToken(true);
   }

@@ -54,20 +54,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import axios from 'axios';
 import type { NuxtApp } from '#app';
 import { useField, useForm, Field, ErrorMessage, } from 'vee-validate';
 import * as yup from 'yup';
 import { useSingleClick } from '~/composables/useSingleClick';
 
+interface Category {
+    id: number;
+    name: string;
+    icon: string;
+    type: 'income' | 'expense';
+}
+
 const { $axios } = useNuxtApp();
 
-const type = ref('expense');
-const step = ref(1);
-const selectedCategory = ref(null);
-const currentUserId = ref('');
-const memo = ref('');
+const type = ref<'income' | 'expense'>('expense');
+const step = ref<number>(1);
+const selectedCategory = ref<Category | null>(null);
+const currentUserId = ref<number | ''>(0);
+const memo = ref<string>('');
 
 //categories を ref([]) として初期化する
 const categories = ref([]);

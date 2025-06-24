@@ -10,7 +10,7 @@ export const useAuth = () => {
     const user = useState<User | null>('user', () => null);
     // Nuxt の useState を使用して、現在ログイン中のユーザーを取得
 
-    const register = async (name: string, email: string, password: string) => {
+    const register: (name: string, email: string, password: string) => Promise<void> = async (name, email, password) => {
         try {
             const cred = await createUserWithEmailAndPassword($auth, email, password);
             await updateProfile(cred.user, { displayName: name });
@@ -22,7 +22,7 @@ export const useAuth = () => {
         }
     };
 
-    const login = async (email: string, password: string) => {
+    const login: (email: string, password: string) => Promise<void> = async (email, password) => {
         try {
             const cred = await signInWithEmailAndPassword($auth, email, password)
             user.value = cred.user;
@@ -33,7 +33,7 @@ export const useAuth = () => {
         };
     };
 
-    const logout = async () => {
+    const logout: () => Promise<void> = async () => {
         try {
             await $auth.signOut();
             user.value = null;
