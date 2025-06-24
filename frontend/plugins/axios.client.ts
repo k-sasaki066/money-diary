@@ -10,6 +10,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     const router = useRouter();
     const instance = axios.create({
         baseURL: 'http://127.0.0.1/api/v1', // Laravel API のベースURL
+        withCredentials: true,
         headers: {
             'Content-Type': 'application/json',
         },
@@ -34,21 +35,24 @@ export default defineNuxtPlugin((nuxtApp) => {
 
             // Firebaseトークンが無効だった場合に再ログイン試行
             if (status === 401) {
-                try {
-                    const auth = getAuth();
-                    const user = auth.currentUser;
-                    if (user) {
-                        await user.getIdToken(true); // 第二引数 true でキャッシュを無視して新しいトークンを生成
-                        const config = error.config;
-                        const newToken = await user.getIdToken();
-                        config.headers.Authorization = `Bearer ${newToken}`
-                        return instance(config); // ← 再試行
+                const auth = getAuth();
+                const user = auth.currentUser;
+
+                if (user) {
+                    try {
+                        const newToken = await user.getIdToken(true); // 第二引数 true でキャッシュを無視して新しいトークンを生成
+                        const config = error.config ?? {};
+                        config.headers = config.headers ?? {};
+                        config.headers.Authorization = `Bearer ${newToken}`;
+                        return instance(config); // 再試行
+                    } catch (err) {
+                        alert('認証が切れました。ログインし直してください。');
+                        await router.push('/login');
+                        return Promise.reject(err);
                     }
-                } catch (e) {
-                    alert('認証が切れました。ログインし直してください。');
-                    await router.push('/login');
-                    return Promise.reject(error);
                 }
+                await router.push('/login');
+                return Promise.reject(error);
             };
 
             // その他のエラー処理

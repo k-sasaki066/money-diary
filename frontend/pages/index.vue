@@ -103,12 +103,20 @@
             name: string;
             type: string;
         };
-    };
+    }
 
     type Category = {
+        id: number;
         name: string;
         icon: string;
         type: 'income' | 'expense';
+    }
+
+    interface ListResponse {
+        listItems: ListItem[];
+        incomeTotal: number;
+        expenseTotal: number;
+        categories: Category[];
     }
 
     const { $axios } = useNuxtApp();
@@ -117,8 +125,8 @@
     //listItems.value は ListItem の配列として認識されます
     const categories = ref<Category[]>([]);
 
-    const incomeTotal = ref([]);
-    const expenseTotal = ref([]);
+    const incomeTotal = ref<number>(0);
+    const expenseTotal = ref<number>(0);
 
     const { run, isRunning } = useSingleClick();
 
@@ -147,19 +155,19 @@
 
     async function fetchListItems() {
         try {
-            const res = await $axios.get(`/lists?month=${formattedMonth.value}`);
+            const res = await $axios.get<ListResponse>(`/lists?month=${formattedMonth.value}`);
             listItems.value = res.data.listItems;
             incomeTotal.value = res.data.incomeTotal;
             expenseTotal.value = res.data.expenseTotal;
             categories.value = res.data.categories;
             console.log(res.data);
-        } catch (error) {
+        } catch (err) {
             console.error('データ取得に失敗しました', err)
         }
     }
 
     function deleteData(item: ListItem) {
-        run(async () => {
+        run(async (): Promise<void> => {
         console.log(item.category);
             const ok = window.confirm(
             `${item.category.name}：${item.amount}円\nこの内容を削除しますか？`
@@ -183,17 +191,11 @@
         return income - expense;
     });
 
-    const formatCurrency = (value: number) => {
+    const formatCurrency = (value: number): string => {
         return value.toLocaleString('ja-JP');
     };
 
     const eatingOutCount = computed(() => {
         return listItems.value.filter(item => item.category.name === '外食').length;
-    });
-
-    const foodExpenseTotal = computed(() => {
-        return listItems.value
-        .filter(item => item.category.name === '食費')
-        .reduce((sum, item) => sum + item.amount, 0);
     });
 </script>
