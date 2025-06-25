@@ -21,6 +21,7 @@ body,
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    padding-top: 60px;
 }
 
 .content {
@@ -70,6 +71,11 @@ NuxtLink {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 60px;
+    z-index: 10;
 }
 
 .navi {
